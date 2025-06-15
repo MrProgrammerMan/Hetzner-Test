@@ -26,3 +26,15 @@ jobs:
         context: .
         push: true
         tags: cepheus64/hetzner-test:latest
+
+    - name: Deploy to VPS
+      uses: appleboy/ssh-action@v1
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        key: ${{ secrets.VPS_SSH_KEY }}
+        script: |
+          docker pull cepheus64/hetzner-test:latest
+          docker stop dotest || true
+          docker rm dotest || true
+          docker run -d --name dotest -p 3000:3000 cepheus64/hetzner-test:latest
