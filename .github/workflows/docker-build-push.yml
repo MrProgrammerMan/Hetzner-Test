@@ -25,4 +25,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: cepheus64/dotest:latest
+        tags: cepheus64/hetzner-test:latest
